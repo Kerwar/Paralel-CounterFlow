@@ -1,0 +1,16 @@
+nx  ny  nz
+600 100 1000
+Xmax Ymax a
+10 1 10
+m q
+1 1.2
+beta gamma
+5 0.7
+Le_F Le_Z
+1 1
+Tol show
+10e-7 1
+palpha valpha
+0.9 0.9
+t0_hot_spot x_hot_spot y_hot_spot radius_hot_spot
+5 -5 0.17 1
