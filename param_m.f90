@@ -74,8 +74,8 @@ module param_m
     this%mx1 = int(float(this%nx)/3.0_DP)
     this%mx2 = int(float(this%nx) * 2.0_DP/3.0_DP)
     
-    this%my1 = int(float(this%ny)/3.0_DP)
-    this%my2 = int(float(this%ny) * 2.0_DP/3.0_DP)
+    this%my1 = int(float(this%ny) * 3.0_DP/7.0_DP)
+    this%my2 = int(float(this%ny) * 4.0_DP/7.0_DP)
   end subroutine read_param
 
   

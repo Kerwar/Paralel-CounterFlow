@@ -5,11 +5,11 @@ program main
   use paralel_m, only: parll_t
   use coefun_m , only: ADI, write_tstep
   use point_m  , only: point_t, coefx_1, coefx_2, coefx_3, coefx_4, coefx_5, coefx_6, &
-  coefx_7, coefx_8, coefx_9, coefy_1, coefy_2, coefy_3, coefy_4
+  coefx_7, coefx_8, coefx_9, coefy_1, coefy_2, coefy_3, coefy_4, coefy_5
   
   implicit none
   
-  include '/home/javi/Downloads/openmpi-4.0.4/ompi/include/mpif.h'
+  include '/usr/lib/x86_64-linux-gnu/openmpi/include/mpif.h'
   
   type(param_t) :: param
   type(parll_t) :: PL
@@ -69,7 +69,7 @@ program main
   
   !NEED TO CHECK IF THIS DECOMPOSITION WORKS FOR MORE THAN 2 PROC
   ! Set size of every mesh for each processor
-if (PL%mycol < PL%nxadd) then
+  if (PL%mycol < PL%nxadd) then
     PL%istr = PL%mycol * &
     (int(float(param%nx)/float(PL%ncols)) + 1) + 1
     PL%iend = (PL%mycol + 1) * &
@@ -109,7 +109,7 @@ if (PL%mycol < PL%nxadd) then
       enddo
       do i = PL%nxadd, PL%ncols-1
         i_str_p(i+j*PL%ncols) = PL%nxadd + &
-         i      * (param%nx/PL%ncols) + 1
+        i      * (param%nx/PL%ncols) + 1
         i_end_p(i+j*PL%ncols) = PL%nxadd + &
         (i + 1) * (param%nx/PL%ncols) 
       enddo
@@ -192,32 +192,34 @@ if (PL%mycol < PL%nxadd) then
       if (PL%myproc == 1 ) then
         open(102, file = "testing.txt", position = "append") 
         if (associated(field(i,j)%setXc, coefx_1)) write(102,*) "1x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_2)) write(102,*) "2x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_3)) write(102,*) "3x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_4) )write(102,*) "4x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_5)) write(102,*) "5x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_6)) write(102,*) "6x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_7)) write(102,*) "7x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_8)) write(102,*) "8x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setXc, coefx_9)) write(102,*) "9x", i + PL%istr - 1, &
-          j + PL%jstr - 1
-                  if (associated(field(i,j)%setYc, coefy_1)) write(102,*) "1y", i + PL%istr - 1, &
-          j + PL%jstr - 1
-          if (associated(field(i,j)%setYc, coefy_2)) write(102,*) "2y", i + PL%istr - 1, &
-          j + PL%jstr - 1
-          if (associated(field(i,j)%setYc, coefy_3)) write(102,*) "3y", i + PL%istr - 1, &
-          j + PL%jstr - 1
-          if (associated(field(i,j)%setYc, coefy_4)) write(102,*) "4y", i + PL%istr - 1, &
-          j + PL%jstr - 1
-
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_2)) write(102,*) "2x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_3)) write(102,*) "3x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_4) )write(102,*) "4x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_5)) write(102,*) "5x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_6)) write(102,*) "6x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_7)) write(102,*) "7x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_8)) write(102,*) "8x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setXc, coefx_9)) write(102,*) "9x", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setYc, coefy_1)) write(102,*) "1y", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setYc, coefy_2)) write(102,*) "2y", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setYc, coefy_3)) write(102,*) "3y", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setYc, coefy_4)) write(102,*) "4y", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        if (associated(field(i,j)%setYc, coefy_5)) write(102,*) "5y", i + PL%istr - 1, &
+        j + PL%jstr - 1
+        
         close(102)
       end if
       !if (PL%myproc == 0) print *, i,j, field(i,j)%T, field(i,j)%F, field(i,j)%Z
@@ -245,83 +247,9 @@ if (PL%mycol < PL%nxadd) then
   allocate(msb(3 * PL%nx), mrb(3 * PL%nx))
   allocate(mst(3 * PL%nx), mrt(3 * PL%nx))
   
-    print *, "My Proc:", PL%myproc, "My Row:", PL%myrow, "My Col:",PL%mycol, &
+  print *, "My Proc:", PL%myproc, "My Row:", PL%myrow, "My Col:",PL%mycol, &
   "Istr:", PL%istr, "Iend:", PL%iend, "Jstr:",PL%jstr, "Jend:", PL%jend
   
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  t = 100
-  if (PL%myproc /= 0) then
-      !print *, "Processor ", PL%myproc, " is up to duty"
-      do i = 1, PL%nx
-        do j = 1, PL%ny
-          index = (j - 1) * rowsize + i
-          
-          soltransf(                    index) = field(i,j)%T
-          soltransf(    PL%nx * PL%ny + index) = field(i,j)%F
-          soltransf(2 * PL%nx * PL%ny + index) = field(i,j)%Z
-        end do
-      end do
-      print *, "Actual size of ", PL%myproc, ":", PL%nx * PL%ny
-      !print *, "Sending info to main proc"
-      call MPI_SEND(soltransf, size(soltransf), MPI_DOUBLE_PRECISION, &
-      0, PL%myproc, MPI_COMM_WORLD, ierr)
-      !print *, "Proc" , PL%myproc, "done sending info to main prco"
-    else 
-      !print *, "Processor 0 is up to duty"
-      
-      do i = 0, PL%nrows-1
-        do j = 0, PL%ncols-1
-          
-          proc = i * PL%nrows + j
-          !print *, "We are in proc", proc, "if u ask proc 0", PL%nrows, PL%ncols
-          
-          rowsize = i_end_p(proc) - i_str_p(proc) + 1
-          colsize = j_end_p(proc) - j_str_p(proc) + 1
-          meshsize = rowsize * colsize
-          
-          if (i == 0 .and. j == 0) then 
-            do k = 1,rowsize
-              do l = 1,colsize
-
-                solution(k ,l, t)%T = field(k,l)%T
-                solution(k ,l, t)%F = field(k,l)%F
-                solution(k ,l, t)%Z = field(k,l)%Z
-              end do
-            end do
-          
-          else
-          
-          deallocate(soltransf)
-          allocate(soltransf( 3 * meshsize))
-          print *, "Main proc idea of size of proc ", proc, ":", meshsize 
-          call MPI_RECV(soltransf, size(soltransf), MPI_DOUBLE_PRECISION, &
-          proc, proc, MPI_COMM_WORLD, status, ierr)            
-
-          !print *, "We are chilling in proc 0"
-          do k = 1,rowsize
-            do l = 1,colsize
-              index = (l - 1) * rowsize + k
-
-              solution(k - 1 + i_str_p(proc),l, t)%T = soltransf(               index)
-              solution(k - 1 + i_str_p(proc),l, t)%F = soltransf(    meshsize + index)
-              solution(k - 1 + i_str_p(proc),l, t)%Z = soltransf(2 * meshsize + index)
-            end do
-          end do
-          end if
-          
-          
-        end do
-      end do
-    end if
-  if (PL%myproc == 0) call write_tstep(solution(:,:,t), param, t)
-  call MPI_FINALIZE(ierr)
-  stop
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !print *, "Let the iter begin in the ", PL%myproc, " processor!"
   do t = 1, param%nt
     
@@ -329,8 +257,8 @@ if (PL%mycol < PL%nxadd) then
     do i = 1, PL%nx
       do j = 1, PL%ny
         if (.not. associated(field(i,j)%setXc)) print *, i, j
-          call field(i,j)%setXc(param)
-          call field(i,j)%setYc(param)
+        call field(i,j)%setXc(param)
+        call field(i,j)%setYc(param)
       end do
     end do
     
@@ -443,19 +371,19 @@ if (PL%mycol < PL%nxadd) then
     
     if (PL%myproc /= 0) then
       !print *, "Processor ", PL%myproc, " is up to duty"
-      do i = 1, PL%nx
-        do j = 1, PL%ny
-          index = (j - 1) * rowsize + i
-          soltransf(index) = field(i,j)%T
-          soltransf(PL%nx * PL%ny + index) = field(i,j)%F
+      do j = 1, PL%ny
+        do i = 1, PL%nx
+          index = (j - 1) * PL%nx + i
+          soltransf(                    index) = field(i,j)%T
+          soltransf(    PL%nx * PL%ny + index) = field(i,j)%F
           soltransf(2 * PL%nx * PL%ny + index) = field(i,j)%Z
-          
         end do
       end do
-      print *, "Actual size of ", PL%myproc, ":", PL%nx * PL%ny
+      print *, "Actual size of ", PL%myproc, ":", size(soltransf)
       !print *, "Sending info to main proc"
-      call MPI_SEND(soltransf, size(soltransf), MPI_DOUBLE_PRECISION, &
-      0, PL%myproc, MPI_COMM_WORLD, ierr)
+      !print *, soltransf
+      call MPI_SsEND(soltransf, size(soltransf), MPI_DOUBLE_PRECISION, &
+      0, 1000 + PL%myproc, MPI_COMM_WORLD, ierr)
       !print *, "Proc" , PL%myproc, "done sending info to main prco"
     else 
       !print *, "Processor 0 is up to duty"
@@ -466,31 +394,47 @@ if (PL%mycol < PL%nxadd) then
           proc = i * PL%nrows + j
           !print *, "We are in proc", proc, "if u ask proc 0", PL%nrows, PL%ncols
           
-          if (i == 0 .and. j == 0) cycle
-          deallocate(soltransf)
-          
           rowsize = i_end_p(proc) - i_str_p(proc) + 1
           colsize = j_end_p(proc) - j_str_p(proc) + 1
           meshsize = rowsize * colsize
-          allocate(soltransf( 3 * meshsize))
-          print *, "Main proc idea of size of proc ", proc, ":", meshsize 
-          call MPI_RECV(soltransf, size(soltransf), MPI_DOUBLE_PRECISION, &
-          proc, proc, MPI_COMM_WORLD, status, ierr)            
-
-          !print *, "We are chilling in proc 0"
-          do k = 1,rowsize
-            do l = 1,colsize
-              index = (l - 1) * rowsize + k
-
-              solution(k - 1 + i_str_p(proc),l, t)%T = soltransf(               index)
-              solution(k - 1 + i_str_p(proc),l, t)%F = soltransf(    meshsize + index)
-              solution(k - 1 + i_str_p(proc),l, t)%Z = soltransf(2 * meshsize + index)
+          
+          if (i == 0 .and. j == 0) then 
+            do k = 1,rowsize
+              do l = 1,colsize
+                
+                solution(k ,l, t)%T = field(k,l)%T
+                solution(k ,l, t)%F = field(k,l)%F
+                solution(k ,l, t)%Z = field(k,l)%Z
+              end do
             end do
-          end do
+            
+          else
+            
+            deallocate(soltransf)
+            allocate(soltransf( 3 * meshsize))
+            print *, "Main proc idea of size of proc ", proc, ":", size(soltransf) 
+            call MPI_RECV(soltransf, size(soltransf), MPI_DOUBLE_PRECISION, &
+            proc, 1000 + proc, MPI_COMM_WORLD, status, ierr)            
+            !print *, "We are chilling in proc 0"
+            do l = 1,colsize
+              do k = 1,rowsize
+                index = (l - 1) * rowsize + k
+                
+                solution(k - 1 + i_str_p(proc),l - 1 + j_str_p(proc), t)%T = &
+                soltransf(               index)
+                solution(k - 1 + i_str_p(proc),l - 1 + j_str_p(proc), t)%F = &
+                soltransf(    meshsize + index)
+                solution(k - 1 + i_str_p(proc),l - 1 + j_str_p(proc), t)%Z = &
+                soltransf(2 * meshsize + index)
+              end do
+            end do
+          end if
+          
           
         end do
       end do
     end if
+    if (PL%myproc == 0) call write_tstep(solution(:,:,t), param, t)
     
     field0 = field
     call MPI_BARRIER(MPI_COMM_WORLD, ierr)
